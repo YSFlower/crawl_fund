@@ -19,6 +19,25 @@ from useragent import USER_AGENT_LIST
 
 url = 'http://fund.eastmoney.com/fund.html'
 
+def save_data(data_dict):
+	file_dir_path = os.getcwd() + '/data/'
+	if not os.path.exists(file_dir_path):
+		print('create file path:{}'.format(file_dir_path))
+		os.mkdir(file_dir_path)
+	
+	current_time = time.strftime("%Y%m%d%H%M%S", time.localtime())
+	file_path = file_dir_path + 'fund_data' + current_time +'.xls'
+
+	workbook = xlwt.Workbook(encoding='utf-8')
+	worksheet = workbook.add_sheet('data', cell_overwrite_ok=True)
+	title_list = ('基金名称', '昨日单位净值'， '昨日累计净值', '前日单位净值'， '前日累计净值', '日增长值', '日增长率')
+	for i in range(len(title_list):
+		worksheet.write(0, i, title_list[i])
+
+	
+
+	workbook.save(file_path)
+
 def etree_t1():
     session = HTMLSession()
     headers = {'User-Agent': random.choice(USER_AGENT_LIST)}
